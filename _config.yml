@@ -1,9 +1,9 @@
 # Site settings
-title: 孔令贤的个人博客
-email: larrykong2016@gmail.com
-description: > #孔令贤的个人博客
+title: liop的个人博客
+email: lioplhp@gmail.com
+description: > #liop的个人博客
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://lingxiankong.github.io" # the base hostname & protocol for your site
+url: "http://liuhoupeng.github.io" # the base hostname & protocol for your site
 
 # Paginate（分页）
 #gems: [jekyll-paginate]
@@ -29,11 +29,9 @@ favicon: /assets/image/favicon.ico
 
 # 博客作者相关
 author:
-  name: Lingxian Kong
-  email: larrykong2016@gmail.com
-  link: http://lingxiankong.github.io/
-  weibo: http://www.weibo.com/lingxiankong
-  weibo_username: Lingxian_Kong
+  name: Houpeng Liu
+  email: lioplhp@gmail.com
+  link: http://liuhoupeng.github.io/
   github: https://github.com/LingxianKong
   github_username: LingxianKong
 
@@ -41,7 +39,7 @@ author:
 locals:                                     #自定义常量
   tags: 标签
   about: 关于
-  active: 技术                                 #自定义常量
+  active: 技术                              #自定义常量
 subscribe_rss: /pages/atom.xml              #订阅地址
 
 # 头像
@@ -59,4 +57,4 @@ image: /assets/image/
 
 # disqus 设置
 disqus:
-  shortname: lingxiankong
+  shortname: liuhoupeng
