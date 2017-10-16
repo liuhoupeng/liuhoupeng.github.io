@@ -10,12 +10,12 @@ RabbitMQ是实现AMQP(高级消息队列协议)的消息中间件。本文研究
 ## 1.场景复现
 基本环境信息：
 
-配置项 | 说明
----|---
-RabbitMQ版本 | rabbitmq-server-3.6.6
-erlang版本 | erlang-R16B-03.17.el7
-RabbitMQ集群节点数量 | 3
-操作系统 | CentOS 7.2	
+|配置项 | 说明|
+|---|---|
+|RabbitMQ版本 | rabbitmq-server-3.6.6|
+|erlang版本 | erlang-R16B-03.17.el7|
+|RabbitMQ集群节点数量 | 3|
+|操作系统 | CentOS 7.2|
 测试步骤以及现象：
 - 在集群某两个个RabbitMQ节点执行管理网网卡闪断操作，30次，持续大概一分半钟；
 - 闪断结束后，查看集群健康状态，通过RabbitMQ的web管理界面看到警告；
