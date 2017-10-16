@@ -20,7 +20,7 @@ RabbitMQ集群节点数量 | 3
 - 在集群某两个个RabbitMQ节点执行管理网网卡闪断操作，30次，持续大概一分半钟；
 - 闪断结束后，查看集群健康状态，通过RabbitMQ的web管理界面看到警告；
 
-![image](http://note.youdao.com/favicon.ico)
+![](/images/2017-10-16-way-to-resolve-partation/1.jpg)
 - 通过rabbitmqctl cluster_status命令查到的确发生网络分区，并且无法自动恢复，集群服务不可用；
 
 ## 2.初步结论
@@ -55,7 +55,7 @@ Cluster status of node rabbit@smacmullen ...
 ## 1.解决思路
 总体架构图如下：
 
-![image](http://note.youdao.com/favicon.ico)
+![](/images/2017-10-16-way-to-resolve-partation/2.jpg)
 
 首先借鉴已有的RabbitMQ恢复检测脚本，发现存在的问题是必须要在集群每个节点运行，当某个节点因为网络故障不能通讯时，该脚本失效。所以首要要解决的问题就是选取一个”中心节点”，通过中心节点管理整个集群服务。  
 
@@ -113,10 +113,10 @@ is_network_ok = self.node_api.networkcheck()
 ```
 通过调取healthchecks/node这个API来获取单节点服务状态，正常状态返回值如下：
 
-![image](http://note.youdao.com/favicon.ico)
+![](/images/2017-10-16-way-to-resolve-partation/3.jpg)
 通过调取api/nodes这个API来获取单节点网络分区状态，正常状态返回值中，partition的属性值为空，如下：  
 
-![image](http://note.youdao.com/favicon.ico)  
+![](/images/2017-10-16-way-to-resolve-partation/4.jpg)
 最后根据每个节点的状态，远程ssh各个节点，写入xinted需要检测的状态文件/tmp/.rabbitmq_healthchecks。
 ## 3.异常恢复的实现
 通过上述过程，得到一个集群节点状态的返回对象cluster_status，针对此状态进行进一步判断并根据特定场景执行特定恢复步骤。  
@@ -162,19 +162,19 @@ vrrp_instance rabbitmq {
 
 ## 1.Keepalived服务
 该节点切换为backup状态，不会有检测恢复服务运行  
-![image](http://note.youdao.com/favicon.ico)
+![](/images/2017-10-16-way-to-resolve-partation/5.jpg)
 ## 2.监控日志
 每隔20s会执行一次检测，正常检测结束会显示如下信息  
 
-![image](http://note.youdao.com/favicon.ico)  
+![](/images/2017-10-16-way-to-resolve-partation/6.jpg) 
 
 当出现异常时，会提示如下类似信息：  
 
-![image](http://note.youdao.com/favicon.ico)  
+![](/images/2017-10-16-way-to-resolve-partation/7.jpg)
 
 然后开始根据异常场景执行恢复动作： 
 
-![image](http://note.youdao.com/favicon.ico)  
+![](/images/2017-10-16-way-to-resolve-partation/8.jpg)
 # 总结：
 此设计方案，能够基本解决RabbitMQ网络异常时的所出现的所有情况，当集群遇到由于网络异常而产生的问题时，能够保证集群自动恢复，或者保证集群可用。另一方面，针对集群可能出现的其他异常，此方案也能探测出异常情况，从而自动恢复。
 
